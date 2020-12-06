@@ -119,6 +119,8 @@ public:
 		lookDir_vector = multiplyMatrixByVector(target_vector, cameraRotationMatrix);
 		right_vector = CrossProduct(lookDir_vector, up_vector);
 		right_vector = multiplyMatrixByVector(right_vector, zRotMat);
+		up_vector = CrossProduct(right_vector, lookDir_vector);
+		
 		target_vector = camera + lookDir_vector;
 
 		mat4x4 cameraMatrix = PointAtMat(camera, target_vector, up_vector);
