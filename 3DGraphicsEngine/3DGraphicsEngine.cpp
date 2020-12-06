@@ -75,7 +75,7 @@ public:
 		};
 
 		pMatrix = ProjectionMatrix((float)ScreenHeight() / (float)ScreenWidth());
-		model.LoadFromObjFile("Model.obj");
+		model.LoadFromObjFile("sphere.obj");
 		
 
 
