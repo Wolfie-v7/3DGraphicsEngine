@@ -92,8 +92,8 @@ public:
 		if (GetKey(olc::D).bHeld) camera = camera + strafe_velocity_vec;
 		if (GetKey(olc::RIGHT).bHeld) fYaw += 1.1f * fElapsedTime;
 		if (GetKey(olc::LEFT).bHeld) fYaw -= 1.1f * fElapsedTime;
-		if (GetKey(olc::E).bHeld) fRoll += 1.1f * fElapsedTime;
-		if (GetKey(olc::Q).bHeld) fRoll -= 1.1f * fElapsedTime;
+		if (GetKey(olc::E).bHeld) fRoll -= 1.1f * fElapsedTime;
+		if (GetKey(olc::Q).bHeld) fRoll += 1.1f * fElapsedTime;
 
 		vector3D velocity_vector = lookDir_vector * (30.0f * fElapsedTime);
 		if (GetKey(olc::W).bHeld) camera = camera + velocity_vector;
