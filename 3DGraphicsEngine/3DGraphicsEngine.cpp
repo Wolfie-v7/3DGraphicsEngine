@@ -75,7 +75,7 @@ public:
 		};
 
 		pMatrix = ProjectionMatrix((float)ScreenHeight() / (float)ScreenWidth());
-		model.LoadFromObjFile("sphere.obj");
+		model.LoadFromObjFile("Wolf.obj");
 		
 
 
@@ -85,9 +85,9 @@ public:
 	bool OnUserUpdate(float fElapsedTime) override 
 	{
 		
-		if (GetKey(olc::UP).bHeld) camera.y -= 10.0f * fElapsedTime;
-		if (GetKey(olc::DOWN).bHeld) camera.y += 10.0f * fElapsedTime;
-		vector3D strafe_velocity_vec = right_vector * (10.0f * fElapsedTime);
+		if (GetKey(olc::UP).bHeld) camera.y -= 30.0f * fElapsedTime;
+		if (GetKey(olc::DOWN).bHeld) camera.y += 30.0f * fElapsedTime;
+		vector3D strafe_velocity_vec = right_vector * (30.0f * fElapsedTime);
 		if (GetKey(olc::A).bHeld) camera = camera - strafe_velocity_vec;
 		if (GetKey(olc::D).bHeld) camera = camera + strafe_velocity_vec;
 		if (GetKey(olc::RIGHT).bHeld) fYaw += 1.1f * fElapsedTime;
@@ -95,7 +95,7 @@ public:
 		if (GetKey(olc::E).bHeld) fRoll += 1.1f * fElapsedTime;
 		if (GetKey(olc::Q).bHeld) fRoll -= 1.1f * fElapsedTime;
 
-		vector3D velocity_vector = lookDir_vector * (10.0f * fElapsedTime);
+		vector3D velocity_vector = lookDir_vector * (30.0f * fElapsedTime);
 		if (GetKey(olc::W).bHeld) camera = camera + velocity_vector;
 		if (GetKey(olc::S).bHeld) camera = camera - velocity_vector;
 
@@ -104,7 +104,7 @@ public:
 		//theta += 1.0f * fElapsedTime;
 		xRotationMatrix x_rMatrix = xRotationMatrix(1.5f * theta);
 		zRotationMatrix z_rMatrix = zRotationMatrix(theta);
-		TranslationMatrix tMatrix = TranslationMatrix(0.0f, 0.0f, 50.0f);
+		TranslationMatrix tMatrix = TranslationMatrix(0.0f, -100.0f, 300.0f); // Change Z value to move object closer or further from camera at time of creation
 		ScalingMatrix sMatrix = ScalingMatrix(-1.0f, -1.0f, 1.0f);
 
 		mat4x4 worldMat = IdentityMatrix();
@@ -270,12 +270,11 @@ public:
 						polyTranslated.Color_Info[2], 
 						polyTranslated.Color_Info[3]));
 
-				DrawTriangle(polyTranslated.p[0].x, polyTranslated.p[0].y,
-					polyTranslated.p[1].x, polyTranslated.p[1].y,
-					polyTranslated.p[2].x, polyTranslated.p[2].y,
-					olc::BLUE);
-
-				//FillCircle(target_vector.x, target_vector.y, 100, olc::RED);
+				//DrawTriangle(polyTranslated.p[0].x, polyTranslated.p[0].y,
+					//polyTranslated.p[1].x, polyTranslated.p[1].y,
+					//polyTranslated.p[2].x, polyTranslated.p[2].y,
+					//olc::BLUE);
+				
 			}
 		}
 			
