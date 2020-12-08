@@ -175,3 +175,39 @@ static mat4x4 invertMatrix_special(mat4x4& m) // Only for rotation/translation m
 
 	return output;
 }
+
+static mat4x4 invertMatrix(mat4x4& m)
+{
+	double  det;
+
+
+	mat4x4 matInv;
+
+	matInv.matrix[0][0] = m.matrix[1][1] * m.matrix[2][2] * m.matrix[3][3] - m.matrix[1][1] * m.matrix[2][3] * m.matrix[3][2] - m.matrix[2][1] * m.matrix[1][2] * m.matrix[3][3] + m.matrix[2][1] * m.matrix[1][3] * m.matrix[3][2] + m.matrix[3][1] * m.matrix[1][2] * m.matrix[2][3] - m.matrix[3][1] * m.matrix[1][3] * m.matrix[2][2];
+	matInv.matrix[1][0] = -m.matrix[1][0] * m.matrix[2][2] * m.matrix[3][3] + m.matrix[1][0] * m.matrix[2][3] * m.matrix[3][2] + m.matrix[2][0] * m.matrix[1][2] * m.matrix[3][3] - m.matrix[2][0] * m.matrix[1][3] * m.matrix[3][2] - m.matrix[3][0] * m.matrix[1][2] * m.matrix[2][3] + m.matrix[3][0] * m.matrix[1][3] * m.matrix[2][2];
+	matInv.matrix[2][0] = m.matrix[1][0] * m.matrix[2][1] * m.matrix[3][3] - m.matrix[1][0] * m.matrix[2][3] * m.matrix[3][1] - m.matrix[2][0] * m.matrix[1][1] * m.matrix[3][3] + m.matrix[2][0] * m.matrix[1][3] * m.matrix[3][1] + m.matrix[3][0] * m.matrix[1][1] * m.matrix[2][3] - m.matrix[3][0] * m.matrix[1][3] * m.matrix[2][1];
+	matInv.matrix[3][0] = -m.matrix[1][0] * m.matrix[2][1] * m.matrix[3][2] + m.matrix[1][0] * m.matrix[2][2] * m.matrix[3][1] + m.matrix[2][0] * m.matrix[1][1] * m.matrix[3][2] - m.matrix[2][0] * m.matrix[1][2] * m.matrix[3][1] - m.matrix[3][0] * m.matrix[1][1] * m.matrix[2][2] + m.matrix[3][0] * m.matrix[1][2] * m.matrix[2][1];
+	matInv.matrix[0][1] = -m.matrix[0][1] * m.matrix[2][2] * m.matrix[3][3] + m.matrix[0][1] * m.matrix[2][3] * m.matrix[3][2] + m.matrix[2][1] * m.matrix[0][2] * m.matrix[3][3] - m.matrix[2][1] * m.matrix[0][3] * m.matrix[3][2] - m.matrix[3][1] * m.matrix[0][2] * m.matrix[2][3] + m.matrix[3][1] * m.matrix[0][3] * m.matrix[2][2];
+	matInv.matrix[1][1] = m.matrix[0][0] * m.matrix[2][2] * m.matrix[3][3] - m.matrix[0][0] * m.matrix[2][3] * m.matrix[3][2] - m.matrix[2][0] * m.matrix[0][2] * m.matrix[3][3] + m.matrix[2][0] * m.matrix[0][3] * m.matrix[3][2] + m.matrix[3][0] * m.matrix[0][2] * m.matrix[2][3] - m.matrix[3][0] * m.matrix[0][3] * m.matrix[2][2];
+	matInv.matrix[2][1] = -m.matrix[0][0] * m.matrix[2][1] * m.matrix[3][3] + m.matrix[0][0] * m.matrix[2][3] * m.matrix[3][1] + m.matrix[2][0] * m.matrix[0][1] * m.matrix[3][3] - m.matrix[2][0] * m.matrix[0][3] * m.matrix[3][1] - m.matrix[3][0] * m.matrix[0][1] * m.matrix[2][3] + m.matrix[3][0] * m.matrix[0][3] * m.matrix[2][1];
+	matInv.matrix[3][1] = m.matrix[0][0] * m.matrix[2][1] * m.matrix[3][2] - m.matrix[0][0] * m.matrix[2][2] * m.matrix[3][1] - m.matrix[2][0] * m.matrix[0][1] * m.matrix[3][2] + m.matrix[2][0] * m.matrix[0][2] * m.matrix[3][1] + m.matrix[3][0] * m.matrix[0][1] * m.matrix[2][2] - m.matrix[3][0] * m.matrix[0][2] * m.matrix[2][1];
+	matInv.matrix[0][2] = m.matrix[0][1] * m.matrix[1][2] * m.matrix[3][3] - m.matrix[0][1] * m.matrix[1][3] * m.matrix[3][2] - m.matrix[1][1] * m.matrix[0][2] * m.matrix[3][3] + m.matrix[1][1] * m.matrix[0][3] * m.matrix[3][2] + m.matrix[3][1] * m.matrix[0][2] * m.matrix[1][3] - m.matrix[3][1] * m.matrix[0][3] * m.matrix[1][2];
+	matInv.matrix[1][2] = -m.matrix[0][0] * m.matrix[1][2] * m.matrix[3][3] + m.matrix[0][0] * m.matrix[1][3] * m.matrix[3][2] + m.matrix[1][0] * m.matrix[0][2] * m.matrix[3][3] - m.matrix[1][0] * m.matrix[0][3] * m.matrix[3][2] - m.matrix[3][0] * m.matrix[0][2] * m.matrix[1][3] + m.matrix[3][0] * m.matrix[0][3] * m.matrix[1][2];
+	matInv.matrix[2][2] = m.matrix[0][0] * m.matrix[1][1] * m.matrix[3][3] - m.matrix[0][0] * m.matrix[1][3] * m.matrix[3][1] - m.matrix[1][0] * m.matrix[0][1] * m.matrix[3][3] + m.matrix[1][0] * m.matrix[0][3] * m.matrix[3][1] + m.matrix[3][0] * m.matrix[0][1] * m.matrix[1][3] - m.matrix[3][0] * m.matrix[0][3] * m.matrix[1][1];
+	matInv.matrix[3][2] = -m.matrix[0][0] * m.matrix[1][1] * m.matrix[3][2] + m.matrix[0][0] * m.matrix[1][2] * m.matrix[3][1] + m.matrix[1][0] * m.matrix[0][1] * m.matrix[3][2] - m.matrix[1][0] * m.matrix[0][2] * m.matrix[3][1] - m.matrix[3][0] * m.matrix[0][1] * m.matrix[1][2] + m.matrix[3][0] * m.matrix[0][2] * m.matrix[1][1];
+	matInv.matrix[0][3] = -m.matrix[0][1] * m.matrix[1][2] * m.matrix[2][3] + m.matrix[0][1] * m.matrix[1][3] * m.matrix[2][2] + m.matrix[1][1] * m.matrix[0][2] * m.matrix[2][3] - m.matrix[1][1] * m.matrix[0][3] * m.matrix[2][2] - m.matrix[2][1] * m.matrix[0][2] * m.matrix[1][3] + m.matrix[2][1] * m.matrix[0][3] * m.matrix[1][2];
+	matInv.matrix[1][3] = m.matrix[0][0] * m.matrix[1][2] * m.matrix[2][3] - m.matrix[0][0] * m.matrix[1][3] * m.matrix[2][2] - m.matrix[1][0] * m.matrix[0][2] * m.matrix[2][3] + m.matrix[1][0] * m.matrix[0][3] * m.matrix[2][2] + m.matrix[2][0] * m.matrix[0][2] * m.matrix[1][3] - m.matrix[2][0] * m.matrix[0][3] * m.matrix[1][2];
+	matInv.matrix[2][3] = -m.matrix[0][0] * m.matrix[1][1] * m.matrix[2][3] + m.matrix[0][0] * m.matrix[1][3] * m.matrix[2][1] + m.matrix[1][0] * m.matrix[0][1] * m.matrix[2][3] - m.matrix[1][0] * m.matrix[0][3] * m.matrix[2][1] - m.matrix[2][0] * m.matrix[0][1] * m.matrix[1][3] + m.matrix[2][0] * m.matrix[0][3] * m.matrix[1][1];
+	matInv.matrix[3][3] = m.matrix[0][0] * m.matrix[1][1] * m.matrix[2][2] - m.matrix[0][0] * m.matrix[1][2] * m.matrix[2][1] - m.matrix[1][0] * m.matrix[0][1] * m.matrix[2][2] + m.matrix[1][0] * m.matrix[0][2] * m.matrix[2][1] + m.matrix[2][0] * m.matrix[0][1] * m.matrix[1][2] - m.matrix[2][0] * m.matrix[0][2] * m.matrix[1][1];
+
+	det = m.matrix[0][0] * matInv.matrix[0][0] + m.matrix[0][1] * matInv.matrix[1][0] + m.matrix[0][2] * matInv.matrix[2][0] + m.matrix[0][3] * matInv.matrix[3][0];
+	//	if (det == 0) return false;
+
+	det = 1.0 / det;
+
+	for (int i = 0; i < 4; i++)
+		for (int j = 0; j < 4; j++)
+			matInv.matrix[i][j] *= (float)det;
+
+	return matInv;
+}

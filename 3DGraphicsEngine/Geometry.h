@@ -53,7 +53,7 @@ struct vector3D
 
 };
 
-struct polygon
+struct triangle
 {
 	vector3D p[3];
 	int32_t Color_Info[4] = { 255 };
@@ -61,7 +61,7 @@ struct polygon
 
 struct mesh
 {
-	std::vector<polygon> polygons;
+	std::vector<triangle> triangles;
 
 	bool LoadFromObjFile(std::string sFilename)
 	{
@@ -91,7 +91,7 @@ struct mesh
 
 			if (line[0] == 'f')
 			{
-				int vert1, vert2, vert3;
+				size_t vert1, vert2, vert3;
 
 				sstream >> junk >> vert1;
 				sstream.ignore(256, ' ');
@@ -101,7 +101,7 @@ struct mesh
 
 				//std::cout << vert1 << vert2 << vert3;
 
-				polygons.push_back({ verts_cache[vert1 - 1], verts_cache[vert2 - 1], verts_cache[vert3 - 1] });
+				triangles.push_back({ verts_cache[vert1 - 1], verts_cache[vert2 - 1], verts_cache[vert3 - 1] });
 				
 			}
 		}
@@ -147,7 +147,7 @@ static vector3D vec_intersect_plane(vector3D& plane_v, vector3D& plane_n, vector
 	return line_s + line_to_intersect;
 }
 
-static int polygons_clipping(vector3D plane_p, vector3D plane_n, polygon& in_poly, polygon& out_poly_1, polygon& out_poly_2)
+static int polygons_clipping(vector3D plane_p, vector3D plane_n, triangle& in_poly, triangle& out_poly_1, triangle& out_poly_2)
 {
 	plane_n = NormalizeVector(plane_n);
 
