@@ -86,7 +86,6 @@ public:
 		model.LoadFromObjFile("tree.obj");
 		
 
-
 		return true;
 	}
 
